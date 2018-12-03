@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
     public float jumpForce;
     private float moveInput;
+    public bool facingRight = true;
 
     public bool isGrounded;
     public Transform feetPose;
@@ -20,8 +21,20 @@ public class PlayerController : MonoBehaviour
     public float jumpTime;
     private bool isJumping;
 
+    public float plumaSpeed = 600.0f;
+    public Transform plumaSpawn;
+    public Rigidbody plumaPrefab;
+
+    Rigidbody clone;
 
     // Use this for initialization
+
+    void Awake()
+    {
+        plumaSpawn = GameObject.Find("PlumaSpawn").transform;
+    }
+
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -36,24 +49,27 @@ public class PlayerController : MonoBehaviour
 
         moveInput = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector3(moveInput * speed, rb.velocity.y);
+        if (moveInput > 0.0f && !facingRight)
+        {
+            Flip();
+        }
+        else if (moveInput < 0.0f && facingRight)
+        {
+            Flip();
+        }
+
+
+
+     
+
+        if (Input.GetKeyDown("c"))
+        {
+            Attack();
+        }
     }
 
     void Update()
     {
-
-
-
-
-        /*if(moveInput > 0)
-        {
-            transform.eulerAngles = new Vector3(0, 0, 0);
-
-        }
-        else if (moveInput < 0)
-        {
-            transform.eulerAngles = new Vector3(0, 180, 0);
-        }*/
-
 
 
 
@@ -82,6 +98,24 @@ public class PlayerController : MonoBehaviour
 
         }
 
+    }
+
+
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        transform.Rotate(Vector3.up, 180.0f, Space.World);
+    }
+
+
+
+
+
+    void Attack()
+    {
+        clone = Instantiate(plumaPrefab, plumaSpawn.position, plumaSpawn.rotation) as Rigidbody;
+        clone.AddForce(plumaSpawn.transform.right * plumaSpeed);
     }
 
 }
