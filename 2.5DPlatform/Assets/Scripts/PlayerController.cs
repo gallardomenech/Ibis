@@ -27,10 +27,20 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody clone;
 
+    /*public Vector3 moveDirection;
+    public const float maxDashTime = 1.0f;
+    public float dashDistance = 10;
+    public float dashStoppingSpeed = 0.1f;
+    float currentDashTime = maxDashTime;
+    float dashSpeed = 6;
+
+    CharacterController controller;*/
+
     // Use this for initialization
 
     void Awake()
     {
+        /*controller = GetComponent<CharacterController>();*/
         plumaSpawn = GameObject.Find("PlumaSpawn").transform;
     }
 
@@ -97,7 +107,20 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
 
         }
+        /*if (Input.GetKeyDown("x")){
 
+            currentDashTime = 0;
+
+        }
+        if (currentDashTime < maxDashTime)
+        {
+            currentDashTime += dashStoppingSpeed;
+        }
+        else
+        {
+            moveDirection = Vector3.zero;
+        }
+        controller.Move(moveDirection * Time.deltaTime * dashSpeed);*/
     }
 
 

@@ -12,6 +12,15 @@ public class PlayerHealth : MonoBehaviour {
     private float timer = 0f;
     private Animator anim;
 
+	public int CurrentHealth{
+		get { return currentHealth; }
+		set {
+			if (value < 0)
+				currentHealth = 0;
+			else
+				currentHealth = value;
+		}
+	}
 
 	// Use this for initialization
 	void Start ()
@@ -54,4 +63,17 @@ public class PlayerHealth : MonoBehaviour {
             playerController.enabled = false;
         }
     }
+
+
+	public void PowerUpHealth () {
+		if (currentHealth <= 60) {
+			currentHealth += 30;
+		} else if (currentHealth < startingHealth){
+			CurrentHealth = startingHealth;
+		}
+
+
+
+	}
+
 }
